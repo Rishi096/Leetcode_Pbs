@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+      int index=-1;
+
+      for(int i = nums.size()-1;i > 0;i--){
+          if(nums[i] > nums[i-1]){
+              index = i;
+              break;
+          }
+      }
+
+      if(index == -1){ //if all the elements are in decreasing order and no next permutation is possible
+          sort(nums.begin(),nums.end());
+      }
+
+      else{
+          int prev = index;
+          
+          for(int i = index+1;i < nums.size();i++){
+              if(nums[i] > nums[index-1] && nums[i] <= nums[prev]){
+                  prev=i;
+              }
+          }
+          swap(nums[index-1],nums[prev]);
+
+          sort(nums.begin()+index,nums.end());
+      }
+    }
+};
